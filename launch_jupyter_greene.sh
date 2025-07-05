@@ -251,8 +251,9 @@ END {
 
 # Wait until Slurm confirms the node is ready
 sleep 20
-until ssh -o ConnectTimeout=2 greene-compute 'true' 2>/dev/null; do
-    printf 'Waiting for greene-compute to accept SSH...\n'
+
+until ssh -o ConnectTimeout=5 -o BatchMode=yes -q greene-compute 'exit' 2>/dev/null; do
+    echo "Waiting for greene-compute to accept SSH..."
     sleep 3
 done
 
